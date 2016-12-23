@@ -2,31 +2,23 @@
 
 import argparse
 import sys
-import ceasershift
-import transpositionDecrypt
-import vinegrecipher
-
-
+import caesar
 
 if __name__ == '__main__':
+    # get a simple imput of cipher and text
+    parser = argparse.ArgumentParser(description='Use a script in this folder to decrypt text using the default options.')
+    parser.add_argument('cipher', help='Choose which cipher to use', choices=['caesar', 'substitution', 'transposition', 'vigenere'])
+    parser.add_argument('text', help='Encrypted text to decrypt')
 
-    #do stuff here
-    parser = argparse.ArgumentParser(description='Decrypt encrypted text. Supports ceasershift, substitution, transposition, and vigenere.')
-    parser.add_argument('-c', '--cipher', help='Choose which cipher to use', choices=['ceaser', 'substitution', 'transposition', 'vigenere'])
-    parser.add_argument('-e', '--encrypted', help='Encrypted text to decrypt')
+    # detect and call the specified cipher
     args = parser.parse_args()
-    args = vars(args)
-    if None in args.values():
-        print 'You must supply the cipher to use and the encrypted text to decrypt'
-        parser.print_help()
-        sys.exit(2)
-    encryptedText = args['encrypted'].upper()
-    cipher = args['cipher']
-    if cipher == 'ceaser':
-        ceasershift.decrypt(encryptedText)
-    elif cipher == 'substituition':
-        print 'This doesnt exist yet'
-    elif cipher == 'transposition':
+    if args.cipher == 'caesar':
+        # list all cipher shifts by default
+        for i in range(1, 26):
+            print("Shift %2i: %s" % (i, caesar.decrypt(args.text, i)))
+    elif args.cipher == 'substituition':
+        print('This doesnt exist yet')
+    elif args.cipher == 'transposition':
         transpositionDecrypt.main(encryptedText)
-    elif cipher == 'vigenere':
+    elif args.cipher == 'vigenere':
         vinegrecipher.main(encryptedText)
