@@ -13,6 +13,11 @@ def decrypt(encrypted, shift = 3):
     decrypted = ''
 
     for letter in encrypted:
+        # don't shift spaces
+        if letter == " ":
+            decrypted += " "
+            continue
+
         newLetter = chr(ord(letter)+shift)
         # don't allow letter to go past 'Z', loops back to 'A'
         if ord(newLetter) > 90: # ord('Z') = 90
