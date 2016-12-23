@@ -4,6 +4,7 @@ import argparse
 import sys
 import caesar
 import vigenere
+import transposition
 
 if __name__ == '__main__':
     # get a simple imput of cipher and text
@@ -22,6 +23,6 @@ if __name__ == '__main__':
     elif args.cipher == 'substituition':
         print('This doesnt exist yet')
     elif args.cipher == 'transposition':
-        transpositionDecrypt.main(encryptedText)
+        transposition.main(args.text)
     elif args.cipher == 'vigenere':
         vigenere.main(args.text, args.wordlist)
