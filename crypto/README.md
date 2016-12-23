@@ -4,7 +4,7 @@ Cryptography Scripts
 Any of the scripts in this directory can be called using `main.py`, but there may be additional options available for each script by calling it manually.
 
 `main.py`
-------------------------------------------------
+---------
 
 Decrypt an input caesar cipher by shifting it a number of characters.
 
@@ -32,7 +32,7 @@ optional arguments:
 
 
 `caeser.py`
-------------------------------------------------
+-----------
 
 Decrypt an input caesar cipher by shifting it a number of characters.
 
