@@ -3,12 +3,15 @@
 import argparse
 import sys
 import caesar
+import vigenere
 
 if __name__ == '__main__':
     # get a simple imput of cipher and text
     parser = argparse.ArgumentParser(description='Use a script in this folder to decrypt text using the default options.')
     parser.add_argument('cipher', help='Choose which cipher to use', choices=['caesar', 'substitution', 'transposition', 'vigenere'])
     parser.add_argument('text', help='Encrypted text to decrypt')
+    parser.add_argument('--wordlist', '-w', default='/root/Desktoprockyou.txt',
+                        help='optional wordlist for some ciphers')
 
     # detect and call the specified cipher
     args = parser.parse_args()
@@ -21,4 +24,4 @@ if __name__ == '__main__':
     elif args.cipher == 'transposition':
         transpositionDecrypt.main(encryptedText)
     elif args.cipher == 'vigenere':
-        vinegrecipher.main(encryptedText)
+        vigenere.main(args.text, args.wordlist)

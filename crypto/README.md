@@ -14,7 +14,8 @@ python3 ./main.py caesar "WKH TXLFN EURZQ IRA"
 ```
 
 ```bash
-usage: main.py [-h] {caesar,substitution,transposition,vigenere} text
+usage: main.py [-h] [--wordlist WORDLIST]
+               {caesar,substitution,transposition,vigenere} text
 
 Use a script in this folder to decrypt text using the default options.
 
@@ -25,6 +26,8 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  --wordlist WORDLIST, -w WORDLIST
+                        optional wordlist for some ciphers
 ```
 
 
