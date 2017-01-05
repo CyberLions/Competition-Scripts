@@ -9,11 +9,11 @@ def main(myMessage):
     calls decryptMessage x amount of times in order to brute force the decryption.
     Returns None, prints plaintext as output.
     """
-    
+
     for myKey in range(1,10): #number of keys to brute force
         plaintext = decryptMessage(myKey, myMessage)
-        print 'using key: %i' % myKey
-        print plaintext
+        print('using key: %i' % myKey)
+        print(plaintext)
 
 
 def decryptMessage(key, message):

@@ -3,6 +3,7 @@
 # Everything else written by pbwaffles
 
 import time
+import os.path
 
 LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
@@ -22,11 +23,11 @@ def attempt_keys(message, bestKeys, keyWordList):
         for myKey in f:
             count += 1
             if (count % 1000) == 0:
-                print 'Attempt %i' % count # prints every time 1000 keys are attempted
+                print('Attempt %i' % count) # prints every time 1000 keys are attempted
             myKey = myKey.strip('\n') # removes those damned newline characters
             translated = translateMessage(myKey, message)
             if translated: # checks to make sure there is a decrypted message in case of an error
-                if translated[0] == 'C': # use this to specify location of a known plaintext 
+                if translated[0] == 'C': # use this to specify location of a known plaintext
                                          # character if known, case sensitive
                     score = is_english(translated)
                     if len(bestKeys) <= 10: # if less than 10 keys, automatically add the key and score
@@ -39,7 +40,7 @@ def attempt_keys(message, bestKeys, keyWordList):
                                 break
                     for key in newBestKeys: # checks to see if the right key has been found based on
                                             # if the score is high enough
-                        if int(newBestKeys[key]) > 70: #70 is an arbitrary score number to guess at 
+                        if int(newBestKeys[key]) > 70: #70 is an arbitrary score number to guess at
                                                        # (don't know a good way to determine this)
                             keyFound = True
                     if keyFound:
@@ -76,20 +77,26 @@ def main(myMessage='', keyWordList='/root/Desktop/rockyou.txt'):
     Prints the length of time taken.
     Prints the 10 best keys and the respective decrypted text
     """
+
+    # check if the password list is missing
+    if not(os.path.exists(keyWordList)):
+        print('The file %s is missing!' % keyWordList)
+        return False
+
     bestKeys = {}
     startTime = time.time()
     bestKeys = attempt_keys(myMessage, bestKeys, keyWordList)
 
-    print 'the best keys are...\n'
+    print('the best keys are...\n')
     for key in bestKeys:
-        print 'Key: %s' % key
-        print 'Message: %s' % decryptMessage(key, myMessage)
-    print '\n'
+        print('Key: %s' % key)
+        print('Message: %s' % decryptMessage(key, myMessage))
+    print('\n')
     endTime = time.time()
     hour = (endTime-startTime)/3600 #3600 seconds in an hour
     minute = ((endTime-startTime)/60) % 60 #60 seconds in a minute
     second = (endTime-startTime) % 60
-    print 'Time elapsed: %i hour(s) %i minute(s) %i second(s)' % (hour, minute, second)
+    print('Time elapsed: %i hour(s) %i minute(s) %i second(s)' % (hour, minute, second))
 
 
 def translateMessage(key, message):
@@ -126,11 +133,11 @@ def translateMessage(key, message):
 
         return ''.join(translated)
     except IndexError:
-        print 'There was an error'
+        print('There was an error')
         return ''
 
 
-# If vigenereCipher.py is run (instead of imported as a module) call
+# If vigenere.py is run (instead of imported as a module) call
 # the main() function.
 if __name__ == '__main__':
     myMessage = "YHTEQAPSSQWLTLSILYPENZIZSJLVPVIPVWLKDLZRCWZXGEZEWCDHDBRCSIEXHLWKRKTOYIUPVFCLBRDIWULGSPOIYKLHZMMYBLLVPVQGXAYEDXILWGWDVRPMPOWNKDAIHSQSLLEESAMSQAIEMPALPEJKAXIPOEHEPLZRTWYTZJPOMPSNSD"
